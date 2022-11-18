@@ -61,10 +61,14 @@ public NodeBackpack(int weight, int value){
     @Override
     public String toString(){
         DecimalFormat df = new DecimalFormat("0.00");
+        DecimalFormat ds = new DecimalFormat("0.0");
         String x ;
         
-        x  = (df.format(this.weight) + " " + df.format(this.percent) + " " + df.format(this.value));
-        
+        if(percent<100){
+        x  = (df.format(this.weight) + " " + ds.format(this.percent) + " " + ds.format(this.value)+"\n");    
+        }else{
+        x = ((int)this.weight + " " + (int)this.percent+ " " + ds.format(this.value));
+        }
         return x ;
     }
 

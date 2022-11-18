@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,8 +34,8 @@ public class PREDA {
 
     public static void main(String[] args) {
        boolean trace, help, entrada, salida, malfunction;
-       String entradaInfo = null, salidaInfo;
-       Backpack mochila ;
+       String entradaInfo = null, salidaInfo = null;
+       Backpack mochila = null ;
        
        trace = false;
        help = false;
@@ -49,7 +48,7 @@ public class PREDA {
        
         if(args.length == 0){
             System.out.println("Faltan parametros, activado modo manual");
-            mochila = modoManual(false);
+            mochila = modoManual(true);
         
         }else if(args.length <= 4){
             for(String x: args){
@@ -99,8 +98,15 @@ public class PREDA {
         
         if(!malfunction){
             if(salida == false){
-                salidaInfo = "archivoSalida";                
+                salidaInfo = "archivoSalida";       
+                
             }
+           try {
+               printResult(mochila, salidaInfo);
+               
+           } catch (FileNotFoundException ex) {
+               Logger.getLogger(PREDA.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
         
    
@@ -231,7 +237,7 @@ public static Backpack procesaMain(LinkedList<NodeBackpack> listaNodos, int back
         monticulo.addNode(x);
     }
     
-    while(!mochila.isFull()){
+    while(!mochila.isFull() && !monticulo.is_empty()){
         mochila.addElement(monticulo.popFirst());
     }
     return mochila;

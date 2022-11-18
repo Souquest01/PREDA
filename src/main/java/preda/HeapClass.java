@@ -22,13 +22,17 @@ public class HeapClass {
      
     
     public HeapClass(int capacity, boolean trace){
-        
+        capacity = (capacity + 2*(3- (capacity%3)));
         heapArray = new NodeBackpack[capacity];
         this.trace = trace;
+        for(NodeBackpack x: heapArray){
+            x = null;
+        }
     }
     
     public void addNode(NodeBackpack newImport)
     {
+        if(trace){System.out.println("Añadir nodo (addNode()) a monticulo");}
         heapArray[counter] = newImport;
         if(trace){System.out.println("asigna nodo en posicion "+counter + "del array/monticulo");}
         counter++;
@@ -114,13 +118,13 @@ public class HeapClass {
         /*
         /* empezamos seleccionando la cabeza del montículo y sus hijos.
         */
-        if(trace){System.out.println("Funcion hundir(), seleccionamos la cima del montículo y sus hijos");}
+        if(trace){System.out.println("Funcion hundir()\n seleccionamos la cima del montículo y sus hijos");}
         select = 0;
         leftChild = (select*2)+1;
         rightChild = (select*2)+2;
         
        
-        while ( heapArray[leftChild] != null){
+        while ( heapArray[leftChild] != null ){
              if(trace){System.out.println("Iteramos mientras haya hijo izquierdo");}
             swap = leftChild;  
             
@@ -207,6 +211,7 @@ public class HeapClass {
         }
         heapArray[0] = heapArray[counter - 1];
         heapArray[counter-1] = null;
+        
         sift_down();
         counter--;
         return aux;
