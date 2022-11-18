@@ -63,6 +63,7 @@ public class Backpack {
         double objectValue;
         double percent;
         DecimalFormat df = new DecimalFormat("0.0");
+        DecimalFormat ds = new DecimalFormat("0.00");
         
         if(trace){
             System.out.println("Metodo añadir de clase Backpack");
@@ -104,7 +105,7 @@ public class Backpack {
             
             percent = objectWeight/ toPocket.get_weight();
             if(trace)System.out.println("Peso fraccion: "+ objectWeight +" / Peso Total: "+toPocket.get_weight());
-            if(trace)System.out.println("sacamos el porcentaje, en este caso: "+ df.format(percent));
+            if(trace)System.out.println("sacamos el porcentaje, en este caso: "+ ds.format(percent));
             toPocket.change_percent(percent); 
             this.currentValue = (currentValue + toPocket.get_value());
             pockets.add(toPocket);

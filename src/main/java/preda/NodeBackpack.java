@@ -53,7 +53,7 @@ public NodeBackpack(int weight, int value){
             System.out.println("ERROR: INPUT CHANGE_PERCENT() ");
         }else{
             this.percent = percent;            
-            this.value = ((this.value * percent)/100);
+            this.value = this.value * percent;
         }
         
     }
@@ -65,12 +65,12 @@ public NodeBackpack(int weight, int value){
         String x ;
         
         if(percent<100){
-        x  = (df.format(this.weight) + " " + ds.format(this.percent) + " " + ds.format(this.value)+"\n");    
+        x  = (df.format(this.weight) + " " + ds.format(this.percent) + " " + ds.format(this.value)+" ");    
         }else{
-        x = ((int)this.weight + " " + (int)this.percent+ " " + ds.format(this.value));
+        x = ((int)this.weight + " " + df.format(this.percent)+ " " + ds.format(this.value)+ " ");
         }
         return x ;
     }
 
-}
- 
+    
+} 

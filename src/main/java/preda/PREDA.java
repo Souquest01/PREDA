@@ -122,7 +122,9 @@ public class PREDA {
         mochila.reset();
         while(mochila.has_Next()){
             aux = mochila.get_Next();
-            ps.print(aux.toString());
+            ps.println(aux.toString());
+            
+            
         }
         ps.print(df.format(mochila.get_fullValue()));
     }

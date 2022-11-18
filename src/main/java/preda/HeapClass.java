@@ -145,7 +145,7 @@ public class HeapClass {
                 } 
                 
                  } 
-             
+            }
             // we have compared the childrens before, now we compare with the
             // selected node, if the child is bigger, we need to swap them.
             
@@ -178,12 +178,13 @@ public class HeapClass {
                 
                 
                 
-            }else{  //if the child is not bigger, the heap has been restored.
+             }else{  //if the child is not bigger, the heap has been restored.
                 break; //scapes the while loop.
-            }
-        }
+}
     }
- }
+        
+    } 
+ 
 
     
     
