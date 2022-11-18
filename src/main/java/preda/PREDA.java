@@ -49,7 +49,7 @@ public class PREDA {
        
         if(args.length == 0){
             System.out.println("Faltan parametros, activado modo manual");
-            mochila = modoManual();
+            mochila = modoManual(false);
         
         }else if(args.length <= 4){
             for(String x: args){
@@ -81,10 +81,13 @@ public class PREDA {
         
             if(!malfunction){
                 
+                if(entrada){
                 try {
-                    mochila = modoEntrada(entradaInfo);
+                    mochila = modoEntrada(entradaInfo, trace);
                 } catch (IOException ex) {
                     Logger.getLogger(PREDA.class.getName()).log(Level.SEVERE, "82 Line", ex);
+                }}else{
+                    mochila = modoManual(trace);
                 }
             }
             
@@ -121,7 +124,7 @@ public class PREDA {
         
     
     
-    public static Backpack modoManual(){
+    public static Backpack modoManual(boolean trace){
        BufferedReader bf;
        boolean  malfunction;
        LinkedList<NodeBackpack> listaNodos;
@@ -151,7 +154,7 @@ public class PREDA {
                
                   System.out.println("Capacidad maxima de la mochila: ");
                   peso = Integer.parseInt(bf.readLine());
-                  mochila = procesaMain(listaNodos, peso, auxiliar);
+                  mochila = procesaMain(listaNodos, peso, auxiliar, trace);
                 malfunction = false;
               }catch(IOException ex){
                 System.out.println("Error de tipo, repita");
@@ -165,7 +168,7 @@ public class PREDA {
 }
 
     
-    public static Backpack modoEntrada(String entrada) throws FileNotFoundException, IOException{
+    public static Backpack modoEntrada(String entrada, boolean trace) throws FileNotFoundException, IOException{
         
         BufferedReader br; 
         LinkedList<NodeBackpack> listaNodos = new LinkedList<>();
@@ -205,7 +208,7 @@ public class PREDA {
         backpackSize = Integer.parseInt(lineaProcesada[0]);
         
         if(!malfunction){
-        mochila = procesaMain(listaNodos, backpackSize, numObjects);
+        mochila = procesaMain(listaNodos, backpackSize, numObjects, trace);
         }else{
             throw new IOException("Wrong format in input file");
                     }
@@ -219,9 +222,9 @@ public static void procesarLista(LinkedList<NodeBackpack> listaNodos, HeapClass 
     }
 }
 
-public static Backpack procesaMain(LinkedList<NodeBackpack> listaNodos, int backpackSize, int numObjects){
-    Backpack mochila = new Backpack(backpackSize);
-    HeapClass monticulo = new HeapClass(numObjects);
+public static Backpack procesaMain(LinkedList<NodeBackpack> listaNodos, int backpackSize, int numObjects, boolean trace){
+    Backpack mochila = new Backpack(backpackSize, trace);
+    HeapClass monticulo = new HeapClass(numObjects, trace);
     
     
     for(NodeBackpack x: listaNodos){
@@ -241,4 +244,5 @@ System.out.println("SINTAXIS: mochila-voraz [-t] [-h] "
                     System.out.println("[fichero entrada] Nombre del fichero de entrada");
                     System.out.println("[fichero salida]  Nombre del fichero de salida");
 }
+
 }

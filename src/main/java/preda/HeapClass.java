@@ -73,7 +73,8 @@ public class HeapClass {
         */
         
         if(trace){
-            System.out.println("nos aseguramos de que el index de padre sea mayor que 0");
+            System.out.println("nos aseguramos de que el index donde vamos a buscar al padre sea mayor que 0\n"
+                    + "para no salir de la estructura.");
         }
         while ( father >= 0 && heapArray[selected].ratio() > heapArray[father].ratio()){
             if(trace){
@@ -113,26 +114,34 @@ public class HeapClass {
         /*
         /* empezamos seleccionando la cabeza del montículo y sus hijos.
         */
+        if(trace){System.out.println("Funcion hundir(), seleccionamos la cima del montículo y sus hijos");}
         select = 0;
         leftChild = (select*2)+1;
         rightChild = (select*2)+2;
         
-        
+       
         while ( heapArray[leftChild] != null){
+             if(trace){System.out.println("Iteramos mientras haya hijo izquierdo");}
             swap = leftChild;  
             
             // if there is a right child we need to check which one is bigger.
             /*
             /* si hay un hijo en la derecha tenemos que comprobar cual es mayor.
             */
+            
             if( heapArray[rightChild] != null){
-                if(heapArray[rightChild].ratio() > heapArray[leftChild].ratio())
-                {
-                    swap = rightChild;  // if right child is bigger, we select it.
+                if(trace){System.out.println("En este caso hay hijo derecho, los comparamos");}
+                
+                 if(heapArray[rightChild].ratio() > heapArray[leftChild].ratio())
+                 {
+                 swap = rightChild;  // if right child is bigger, we select it.
+         
+                if(trace){System.out.println("hijo derecho ("+heapArray[rightChild].ratio()+") "
+                + "> que hijo izquierdo (" +heapArray[leftChild].ratio()+"); hijo derecho es mayor");
                 } 
                 
-            } 
-            
+                 } 
+             
             // we have compared the childrens before, now we compare with the
             // selected node, if the child is bigger, we need to swap them.
             
@@ -141,6 +150,9 @@ public class HeapClass {
             /* éstos con el nodo seleccionado, si el hijo es mayor, los intercambiamos.
             */
             if(heapArray[swap].ratio() > heapArray[select].ratio()){
+                if(trace){System.out.println("Hemos comparados los hijos, uno de ellos es mayor que el padre y tenemos que corregir\n"
+                        + "hijo ("+heapArray[swap].ratio()+") > padre ("+heapArray[select].ratio()+")");}
+               
                 aux = heapArray[swap];
                 heapArray[swap] = heapArray[select];
                 heapArray[select] = aux;
@@ -153,6 +165,9 @@ public class HeapClass {
                 /* seguimos buscando por inconsistencias, actualizamos las 
                 /* selecciones y comprobamos de nuevo en  el bucle.
                 */
+                
+                if(trace){System.out.println("repetimos recorriendo la estructura");}
+               
                 select = swap;
                 leftChild = (select*2) + 1;
                 rightChild = (select*2) + 2;
@@ -163,8 +178,10 @@ public class HeapClass {
                 break; //scapes the while loop.
             }
         }
-        
     }
+ }
+
+    
     
     
     public boolean is_empty(){
@@ -177,7 +194,17 @@ public class HeapClass {
     */
     public NodeBackpack popFirst(){
         if(counter == 0) throw new IllegalStateException("Heap is Empty"); 
+   
+        
         NodeBackpack aux = heapArray[0];
+        
+        if(trace){System.out.println("Seleccionamos cima del monticulo");
+            System.out.println("añadimos el nodo del final de la estructura a"
+                    + "la cabeza de esta\n"
+                    + "desreferenciamos dicha posicion, restamos uno al contador de"
+                    + "elementos y finalmente retornamos la cabeza previamente seleccionada."
+                    + "llamamos al a función hundir() ");
+        }
         heapArray[0] = heapArray[counter - 1];
         heapArray[counter-1] = null;
         sift_down();

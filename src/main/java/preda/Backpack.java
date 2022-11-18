@@ -5,6 +5,7 @@
 package preda;
 
 import static java.lang.Math.floor;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -45,13 +46,14 @@ public class Backpack {
     double currentWeight;
     LinkedList<NodeBackpack> pockets; 
     ListIterator list_iter;
+    boolean trace;
     
-    
-    public Backpack(int weight){
+    public Backpack(int weight, boolean trace){
         this.maxWeight = weight;
         this.currentWeight = 0;
         pockets = new LinkedList<>();
         list_iter = pockets.listIterator();
+        this.trace = trace;
     
     }
     
@@ -60,26 +62,49 @@ public class Backpack {
         double objectWeight;
         double objectValue;
         double percent;
+        DecimalFormat df = new DecimalFormat("0.0");
+        
+        if(trace){
+            System.out.println("Metodo añadir de clase Backpack");
+            System.out.println("");
+        }
         
         objectWeight = toPocket.get_weight();
         objectValue = toPocket.get_value();
-        
+        if(trace){System.out.println("peso Objeto: "+objectWeight+" "
+                + "valor objeto: "+objectValue);}
         aux = objectWeight + currentWeight; 
+        
+        if(trace) System.out.println("Sumamos el peso del objeto al peso actual de la mochila");
         
         
         if(maxWeight == currentWeight){
-            System.out.println("mochila llena");
+          if(trace)  System.out.println("mochila llena");
         }else
         if(aux <= maxWeight){
+            
+            if(trace)System.out.println("si el peso combinado no sobrepasa el limite, añadimos");
+            
             pockets.add(toPocket);
             currentWeight += objectWeight;
             currentValue += objectValue;
+            
+            if(trace) System.out.println("Y actualizamos, peso mochila actual: "+currentWeight+" Valor actual: "+ currentValue);
         }else{
+            if(trace) System.out.println("En esta ocasion el peso combinado sobrepasaria el límite, debemos fraccionar el objeto");
+            if(trace) System.out.println("Peso actual + objeto: "+aux);
             aux = aux - maxWeight;
+            if(trace) System.out.println("Le restamos el maximo ("+maxWeight+") = "+objectWeight);
+            
             objectWeight = objectWeight - aux;
+            if(trace)System.out.println("el restante se lo restamos al objeto del total, fraccionandolo.");
+            if(trace) System.out.println("Peso del objeto fraccionado: "+df.format(objectWeight));
             this.currentWeight += objectWeight;
             
-            percent = objectWeight/ (toPocket.get_weight()/100);
+            
+            percent = objectWeight/ toPocket.get_weight();
+            if(trace)System.out.println("Peso fraccion: "+ objectWeight +" / Peso Total: "+toPocket.get_weight());
+            if(trace)System.out.println("sacamos el porcentaje, en este caso: "+ df.format(percent));
             toPocket.change_percent(percent); 
             this.currentValue = (currentValue + toPocket.get_value());
             pockets.add(toPocket);
