@@ -43,13 +43,24 @@ public class PREDA {
        salida = false;
        malfunction = false;
        
-        
+         
        
        
         if(args.length == 0){
             System.out.println("Faltan parametros, activado modo manual");
-            mochila = modoManual(true);
-        
+            System.out.println("Desea activar un modo manual?");
+            System.out.println("1 = Si");
+            System.out.println("Otro = no");
+            
+            if(eleccion()){
+                System.out.println("Ha elegido activar el modo manual");
+                System.out.println("desea activar el modo traza?");
+                System.out.println("1 = Si");
+                System.out.println("Otro = No");
+                mochila = modoManual(eleccion());
+            }else{
+                malfunction = true;
+            }
         }else if(args.length <= 4){
             for(String x: args){
                 if(x.equals("-h") && help == false){
@@ -84,9 +95,31 @@ public class PREDA {
                 try {
                     mochila = modoEntrada(entradaInfo, trace);
                 } catch (IOException ex) {
-                    Logger.getLogger(PREDA.class.getName()).log(Level.SEVERE, "82 Line", ex);
-                }}else{
-                    mochila = modoManual(trace);
+                    System.out.println("Fichero de entrada no encontrado");
+                    malfunction = true;
+                }catch (ArrayIndexOutOfBoundsException t){
+                    System.out.println("Fichero encontrado pero formato erroneo");
+                    System.out.println("Por favor, corrija");
+                    malfunction = true;
+                }catch(Error e){
+                    System.out.println("Error no determinado en el procesamiento de entrada de datos");
+                    System.out.println("Probablemente formato incorrecto");
+                }
+                
+                }else{
+            System.out.println("Desea activar un modo manual?");
+            System.out.println("1 = Si");
+            System.out.println("Otro = no");
+            
+            if(eleccion()){
+                System.out.println("Ha elegido activar el modo manual");
+                System.out.println("desea activar el modo traza?");
+                System.out.println("1 = Si");
+                System.out.println("Otro = no");
+            mochila = modoManual(eleccion());
+            }else{
+                malfunction = true;
+            }
                 }
             }
             
@@ -187,6 +220,9 @@ public class PREDA {
         boolean malfunction = false;
         int numObjects, peso, value, backpackSize;
         
+        if(!entrada.endsWith(".txt")){
+            entrada.concat(".txt");
+        }
         
         br = new BufferedReader(new FileReader(entrada)); 
         lineaRaw = br.readLine();
@@ -251,6 +287,20 @@ System.out.println("SINTAXIS: mochila-voraz [-t] [-h] "
                     System.out.println("-h                Muestra esta ayuda");
                     System.out.println("[fichero entrada] Nombre del fichero de entrada");
                     System.out.println("[fichero salida]  Nombre del fichero de salida");
+}
+
+private static boolean eleccion(){
+    char y;
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String x;
+        try {
+            x = br.readLine();
+        } catch (IOException ex) {
+            return false;
+        }
+    y = x.charAt(0);
+    
+    return '1' == y;
 }
 
 }

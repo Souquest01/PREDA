@@ -66,6 +66,7 @@ public class Backpack {
         DecimalFormat ds = new DecimalFormat("0.00");
         
         if(trace){
+            System.out.println("");
             System.out.println("Metodo añadir de clase Backpack");
             System.out.println("");
         }
@@ -90,8 +91,10 @@ public class Backpack {
             currentWeight += objectWeight;
             currentValue += objectValue;
             
-            if(trace) System.out.println("Y actualizamos, peso mochila actual: "+currentWeight+" Valor actual: "+ currentValue);
-        }else{
+            if(trace) {System.out.println("Y actualizamos." );
+            System.out.println("");
+            System.out.println("peso mochila actual: "+currentWeight+" Valor actual: "+ currentValue);
+            }}else{
             if(trace) System.out.println("En esta ocasion el peso combinado sobrepasaria el límite, debemos fraccionar el objeto");
             if(trace) System.out.println("Peso actual + objeto: "+aux);
             aux = aux - maxWeight;

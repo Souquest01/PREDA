@@ -30,8 +30,8 @@ public class NodeBackpack {
 public NodeBackpack(int weight, int value){
     this.weight = weight;
     this.value = value;
-    ratio = value/weight;
-    percent = 100;
+    this.ratio = (this.value/this.weight);
+    this.percent = 100;
 }
     public double ratio(){
         return ratio;

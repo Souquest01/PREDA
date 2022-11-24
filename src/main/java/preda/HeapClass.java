@@ -32,11 +32,18 @@ public class HeapClass {
     
     public void addNode(NodeBackpack newImport)
     {
-        if(trace){System.out.println("Añadir nodo (addNode()) a monticulo");}
+        if(trace){
+            System.out.println("");
+            System.out.println("Añadir nodo (addNode())");
+            System.out.println("");
+        }
+        
         heapArray[counter] = newImport;
-        if(trace){System.out.println("asigna nodo en posicion "+counter + "del array/monticulo");}
         counter++;
-        if(trace){System.out.println("suma 1 al contador");}
+        
+        if(trace){System.out.println("asigna nodo en posicion "+(counter-1) + " del array/monticulo");}
+        if(trace){System.out.println("suma 1 al contador");}       
+       
         if(counter > 1){
             if(trace){System.out.println("Si el contador es > 1 llama a flotar()");}
             sift_up(); //restaura la propiedad de montículo, moviendo el elemento "hacia arriba"
@@ -61,7 +68,10 @@ public class HeapClass {
         selected = counter - 1;
         father = (selected-1)/2;
         if(trace){
-            System.out.println("seleccionamos el contador("+counter+") y le restamos 1 para encontrar el ultimo elemento añadido, actualmente "+selected);
+            System.out.println("");
+            System.out.println("funcion flotar()");
+            System.out.println("");
+            System.out.println("seleccionamos el contador ("+counter+") y le restamos 1 para encontrar el ultimo elemento añadido, actualmente "+selected);
             System.out.println("Buscamos el padre restandole 1("+(selected-1)+") y dividiendo entre dos; padre = "+ father);
         }
         
@@ -79,6 +89,9 @@ public class HeapClass {
         if(trace){
             System.out.println("nos aseguramos de que el index donde vamos a buscar al padre sea mayor que 0\n"
                     + "para no salir de la estructura.");
+            System.out.println("Y comparamos el nodo seleccionado con el padre:");
+            System.out.println("Nodo seleccionado ratio = "+ heapArray[selected].ratio());
+            System.out.println("Nodo padre ratio = " +heapArray[father].ratio());
         }
         while ( father >= 0 && heapArray[selected].ratio() > heapArray[father].ratio()){
             if(trace){
@@ -182,6 +195,11 @@ public class HeapClass {
                 break; //scapes the while loop.
 }
     }
+        if(trace){
+            System.out.println("");
+            System.out.println("No hay hijo, finaliza funcion hundir()");
+            System.out.println("");
+        }
         
     } 
  
