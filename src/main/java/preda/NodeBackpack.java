@@ -4,6 +4,7 @@
  */
 package preda;
 
+import static java.lang.Math.floor;
 import java.text.DecimalFormat;
 
 /**
@@ -62,13 +63,28 @@ public NodeBackpack(int weight, int value){
     public String toString(){
         DecimalFormat df = new DecimalFormat("0.00");
         DecimalFormat ds = new DecimalFormat("0.0");
+        DecimalFormat dt = new DecimalFormat("0");
         String x ;
+        x = "";
+        x = x.concat(dt.format(this.weight));
+        
         
         if(percent<100){
-        x  = (df.format(this.weight) + " " + ds.format(this.percent) + " " + ds.format(this.value)+" ");    
+            if(percent < 0.1){
+                x = x.concat(" " + df.format(this.percent) + " ");
+            }else{
+              x = x.concat(" " + ds.format(this.percent) + " ");    
+            }
         }else{
-        x = ((int)this.weight + " " + df.format(this.percent)+ " " + ds.format(this.value)+ " ");
+        x = (dt.format(this.weight) + " 1 ");
         }
+        
+        if(floor(this.value) == this.value){
+          x =   x.concat(dt.format(this.value));
+        }else{
+          x =  x.concat(ds.format(this.value));
+        }
+        
         return x ;
     }
 

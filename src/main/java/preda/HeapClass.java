@@ -34,24 +34,24 @@ public class HeapClass {
     {
         if(trace){
             System.out.println("");
-            System.out.println("Añadir nodo (addNode())");
+            System.out.println("    Añadir nodo addNode()");
             System.out.println("");
         }
         
         heapArray[counter] = newImport;
         counter++;
         
-        if(trace){System.out.println("asigna nodo en posicion "+(counter-1) + " del array/monticulo");}
-        if(trace){System.out.println("suma 1 al contador");}       
+        if(trace){System.out.println("    asigna nodo en posicion "+(counter-1) + " del array/monticulo");}
+        if(trace){System.out.println("    suma 1 al contador");}       
        
         if(counter > 1){
-            if(trace){System.out.println("Si el contador es > 1 llama a flotar()");}
-            sift_up(); //restaura la propiedad de montículo, moviendo el elemento "hacia arriba"
+            if(trace){System.out.println("    Si el contador es >= 1 llama a flotar()");}
+            flotar(); //restaura la propiedad de montículo, moviendo el elemento "hacia arriba"
         }
     }
     
     /*funcion flotar */
-    private void sift_up(){
+    private void flotar(){
         NodeBackpack aux;
         int father;
         int selected;
@@ -69,10 +69,10 @@ public class HeapClass {
         father = (selected-1)/2;
         if(trace){
             System.out.println("");
-            System.out.println("funcion flotar()");
+            System.out.println("    funcion flotar()");
             System.out.println("");
-            System.out.println("seleccionamos el contador ("+counter+") y le restamos 1 para encontrar el ultimo elemento añadido, actualmente "+selected);
-            System.out.println("Buscamos el padre restandole 1("+(selected-1)+") y dividiendo entre dos; padre = "+ father);
+            System.out.println("    seleccionamos el contador ("+counter+") y le restamos 1 para encontrar el ultimo elemento añadido, actualmente "+selected);
+            System.out.println("    Buscamos el padre restandole 1("+(selected-1)+") y dividiendo entre dos; padre = "+ father);
         }
         
         // we make sure that we keep in between the array's boundaries, we compare
@@ -87,19 +87,19 @@ public class HeapClass {
         */
         
         if(trace){
-            System.out.println("nos aseguramos de que el index donde vamos a buscar al padre sea mayor que 0\n"
-                    + "para no salir de la estructura.");
-            System.out.println("Y comparamos el nodo seleccionado con el padre:");
-            System.out.println("Nodo seleccionado ratio = "+ heapArray[selected].ratio());
-            System.out.println("Nodo padre ratio = " +heapArray[father].ratio());
+            System.out.println("    nos aseguramos de que el index donde vamos a buscar al padre sea >= 0\n"
+                    + "    para no salir de la estructura.");
+            System.out.println("    Y comparamos el nodo seleccionado con el padre:");
+            System.out.println("    Nodo seleccionado ratio = "+ heapArray[selected].ratio());
+            System.out.println("    Nodo padre ratio = " +heapArray[father].ratio());
         }
         while ( father >= 0 && heapArray[selected].ratio() > heapArray[father].ratio()){
             if(trace){
-                System.out.println("Si lo es, comparamos los ratios del padre y el hijo y cambiamos los lugares de ambos");
-                System.out.println("hijo: "+ heapArray[selected].ratio() + " > padre :"+ heapArray[father].ratio());
-                System.out.println("intercambiamos");
-                System.out.println("seguimos buscando hacia arriba, seleccionando esta vez la posicion que correspondia al padre");
-                System.out.println("y buscamos de nuevo el padre de este nodo");
+                System.out.println("    comparamos los ratios del padre y el hijo");
+                System.out.println("    hijo: "+ heapArray[selected].ratio() + " > padre :"+ heapArray[father].ratio());
+                System.out.println("    intercambiamos");
+                System.out.println("    seguimos buscando hacia arriba, seleccionando esta vez la posicion que correspondia al padre");
+                System.out.println("    y buscamos de nuevo el padre de este nodo");
             }
             aux = heapArray[father];
             heapArray[father] = heapArray[selected];
@@ -108,11 +108,11 @@ public class HeapClass {
             selected = father;
             father = (selected - 1) / 2;
         }
-        if(trace){System.out.println("hemos restaurado la propiedad");}
+        if(trace){System.out.println("    hemos restaurado la propiedad");}
     }
     
     /* funcion hundir */
-    private void sift_down(){
+    private void hundir(){
         // checks the head of the heap, if the head is smaller than one of his
         // children it moves it down the structure
         
@@ -131,14 +131,18 @@ public class HeapClass {
         /*
         /* empezamos seleccionando la cabeza del montículo y sus hijos.
         */
-        if(trace){System.out.println("Funcion hundir()\n seleccionamos la cima del montículo y sus hijos");}
+        if(trace){
+            System.out.println("");
+            System.out.println("    Funcion hundir()\n    seleccionamos la cima del montículo y sus hijos");
+            System.out.println("");
+        }
         select = 0;
         leftChild = (select*2)+1;
         rightChild = (select*2)+2;
         
        
         while ( heapArray[leftChild] != null ){
-             if(trace){System.out.println("Iteramos mientras haya hijo izquierdo");}
+             if(trace){System.out.println("    Iteramos mientras haya hijo izquierdo");}
             swap = leftChild;  
             
             // if there is a right child we need to check which one is bigger.
@@ -147,14 +151,14 @@ public class HeapClass {
             */
             
             if( heapArray[rightChild] != null){
-                if(trace){System.out.println("En este caso hay hijo derecho, los comparamos");}
+                if(trace){System.out.println("    En este caso hay hijo derecho, los comparamos");}
                 
                  if(heapArray[rightChild].ratio() > heapArray[leftChild].ratio())
                  {
                  swap = rightChild;  // if right child is bigger, we select it.
          
-                if(trace){System.out.println("hijo derecho ("+heapArray[rightChild].ratio()+") "
-                + "> que hijo izquierdo (" +heapArray[leftChild].ratio()+"); hijo derecho es mayor");
+                if(trace){System.out.println("    hijo derecho ("+heapArray[rightChild].ratio()+") "
+                + "> que hijo izquierdo (" +heapArray[leftChild].ratio()+")");
                 } 
                 
                  } 
@@ -167,9 +171,11 @@ public class HeapClass {
             /* éstos con el nodo seleccionado, si el hijo es mayor, los intercambiamos.
             */
             if(heapArray[swap].ratio() > heapArray[select].ratio()){
-                if(trace){System.out.println("Hemos comparados los hijos, uno de ellos es mayor que el padre y tenemos que corregir\n"
-                        + "hijo ("+heapArray[swap].ratio()+") > padre ("+heapArray[select].ratio()+")");}
-               
+                if(trace)System.out.println("");
+                if(trace){System.out.println("    Hemos comparados los hijos, uno de ellos es mayor que el padre y tenemos que corregir\n"
+                        + "    hijo ("+heapArray[swap].ratio()+") > padre ("+heapArray[select].ratio()+")");}
+                if(trace)System.out.println("Intercambiamos sus posiciones.");
+                if(trace)System.out.println("");
                 aux = heapArray[swap];
                 heapArray[swap] = heapArray[select];
                 heapArray[select] = aux;
@@ -183,7 +189,7 @@ public class HeapClass {
                 /* selecciones y comprobamos de nuevo en  el bucle.
                 */
                 
-                if(trace){System.out.println("repetimos recorriendo la estructura");}
+                if(trace){System.out.println("    repetimos recorriendo la estructura");}
                
                 select = swap;
                 leftChild = (select*2) + 1;
@@ -197,14 +203,19 @@ public class HeapClass {
     }
         if(trace){
             System.out.println("");
-            System.out.println("No hay hijo, finaliza funcion hundir()");
+            System.out.println("    No hay hijo, finaliza funcion hundir()");
             System.out.println("");
         }
         
     } 
  
 
-    
+    public void printStructure(){
+        for( NodeBackpack x : heapArray){
+            
+            if(x != null) System.out.println(x.toString());
+        }
+    }
     
     
     public boolean is_empty(){
@@ -216,22 +227,37 @@ public class HeapClass {
     /* devuelve la cima del monticulo y la elimina.
     */
     public NodeBackpack popFirst(){
-        if(counter == 0) throw new IllegalStateException("Heap is Empty"); 
+        if(counter == 0) throw new IllegalStateException("    Heap is Empty"); 
    
         
         NodeBackpack aux = heapArray[0];
         
-        if(trace){System.out.println("Seleccionamos cima del monticulo");
-            System.out.println("añadimos el nodo del final de la estructura a"
-                    + "la cabeza de esta\n"
-                    + "desreferenciamos dicha posicion, restamos uno al contador de"
-                    + "elementos y finalmente retornamos la cabeza previamente seleccionada."
-                    + "llamamos al a función hundir() ");
+        if(trace){
+            System.out.println("");
+            System.out.println("    Funcion popFirst() de clase monticulo");
+            System.out.println("");
+            System.out.println("    Seleccionamos cima del monticulo");
+            System.out.println("");
+            System.out.println("    Movemos el nodo del final de la estructura (array index ="+(this.counter -1)+")");
+            System.out.println("    A la cabeza de esta");
+            System.out.println("    Desreferenciamos la ultima posicion");
+            System.out.println("    Y restamos uno al contador de elementos");
+
+            System.out.println("    Llamamos a la funcion hundir() para reestablecer la propiedad");
+            System.out.println("    Del monticulo.");
+
         }
         heapArray[0] = heapArray[counter - 1];
         heapArray[counter-1] = null;
         
-        sift_down();
+        if(trace){
+            System.out.println("    Finalmente devolvemos el elemento seleccionado");
+            System.out.println("    Al principio de la funcion, la anterior cima del monticulo");
+            System.out.println("    Y restamos 1 al contador de elementos.");
+            System.out.println("");
+        }
+        
+        hundir();
         counter--;
         return aux;
     

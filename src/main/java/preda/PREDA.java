@@ -135,7 +135,7 @@ public class PREDA {
                 
             }
            try {
-               printResult(mochila, salidaInfo);
+               printResult(mochila, salidaInfo, trace);
                
            } catch (FileNotFoundException ex) {
                Logger.getLogger(PREDA.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,14 +147,24 @@ public class PREDA {
         
         
         
-    public static void printResult(Backpack mochila, String salida) throws FileNotFoundException{
+    public static void printResult(Backpack mochila, String salida, boolean trace) throws FileNotFoundException{
         
         DecimalFormat df = new DecimalFormat("0.0");
         PrintStream ps = new PrintStream(new File(salida +".txt"));
         NodeBackpack aux;
         mochila.reset();
+        
+        if(trace)System.out.println("");
+        if(trace)System.out.println("Imprimiendo contenido mochila");
+        if(trace)System.out.println("");
+        
         while(mochila.has_Next()){
             aux = mochila.get_Next();
+            
+            if(trace){
+                System.out.println(aux);
+            }
+            
             ps.println(aux.toString());
             
             
@@ -274,6 +284,12 @@ public static Backpack procesaMain(LinkedList<NodeBackpack> listaNodos, int back
     for(NodeBackpack x: listaNodos){
         monticulo.addNode(x);
     }
+    
+    if(trace) System.out.println("");
+    if(trace) System.out.println("Contenido de monticulo:");
+    if(trace) System.out.println("");
+    if(trace) monticulo.printStructure();
+    if(trace) System.out.println("");
     
     while(!mochila.isFull() && !monticulo.is_empty()){
         mochila.addElement(monticulo.popFirst());

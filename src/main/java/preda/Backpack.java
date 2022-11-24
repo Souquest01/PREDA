@@ -54,6 +54,8 @@ public class Backpack {
         pockets = new LinkedList<>();
         list_iter = pockets.listIterator();
         this.trace = trace;
+        
+        if(trace) System.out.println("Peso maximo mochila: "+maxWeight);
     
     }
     
@@ -69,6 +71,9 @@ public class Backpack {
             System.out.println("");
             System.out.println("Metodo añadir de clase Backpack");
             System.out.println("");
+            System.out.println("Peso actual de la mochila: "+this.currentWeight);
+            System.out.println("Valor actual de la mochila: "+this.currentValue);
+            System.out.println("");
         }
         
         objectWeight = toPocket.get_weight();
@@ -77,6 +82,7 @@ public class Backpack {
                 + "valor objeto: "+objectValue);}
         aux = objectWeight + currentWeight; 
         
+        if(trace) System.out.println("");
         if(trace) System.out.println("Sumamos el peso del objeto al peso actual de la mochila");
         
         
